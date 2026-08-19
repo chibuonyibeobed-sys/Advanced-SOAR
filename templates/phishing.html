@@ -1,4 +1,54 @@
-<!DOCTYPE html><html><head><title>URL Checker</title><style>body{background:#f0f2f5;padding:40px}.box{background:white;padding:20px;border-radius:8px;max-width:600px;margin:auto}</style></head><body>
-<div class="box"><h2>URL Safety Checker</h2><form action="/check_url" method="post">
-<input name="url" placeholder="https://suspicious-site.com" style="width:100%;padding:10px" required>
-<button>Scan URL</button></form></div></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URL Threat Scan | ConnectHub</title>
+<style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+    body{background:#f8fafc;color:#1e293b}
+    .navbar{background:#0f172a;color:white;padding:16px 40px;display:flex;justify-content:space-between;align-items:center}
+    .navbar .logo{font-size:22px;font-weight:700;color:#38bdf8}
+    .navbar a{color:#e2e8f0;text-decoration:none;margin:0 15px;font-weight:500}
+    .btn-login{background:#38bdf8;color:#0f172a;padding:8px 20px;border-radius:6px;font-weight:600}
+    .container{max-width:800px;margin:50px auto;padding:40px;background:white;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.05)}
+    h1{color:#0f172a;margin-bottom:10px}
+    .subtitle{color:#64748b;margin-bottom:30px}
+    .info-box{background:#fef2f2;border-left:4px solid #ef4444;padding:15px;border-radius:6px;margin-bottom:25px;font-size:14px}
+    input{width:100%;padding:14px;margin:10px 0;border:1px solid #cbd5e1;border-radius:8px;font-size:15px}
+    input:focus{outline:none;border-color:#38bdf8}
+    button{width:100%;padding:14px;margin-top:10px;background:#38bdf8;color:#0f172a;border:none;border-radius:8px;font-weight:700;font-size:16px;cursor:pointer}
+    button:hover{background:#0ea5e9;color:white}
+    .footer{margin-top:30px;font-size:12px;color:#94a3b8;text-align:center}
+</style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">ConnectHub</div>
+    <div>
+        <a href="/">Home</a>
+        <a href="/security/file-scan">File Scan</a>
+        <a href="/security/url-scan">URL Scan</a>
+        <a href="/login" class="btn-login">Customer Login</a>
+    </div>
+</div>
+
+<div class="container">
+    <h1>🔗 URL Threat Scan</h1>
+    <p class="subtitle">Check any link for phishing, malware, and fraud before you click</p>
+    
+    <div class="info-box">
+        <b>Security Warning:</b> We scan URLs against our IOC blacklist + 90+ vendors. Phishing and scam links are blocked instantly.
+    </div>
+
+    <form action="/security/check-url" method="post">
+        <input name="url" placeholder="https://suspicious-site.com" required>
+        <button>Analyze URL</button>
+    </form>
+    
+    <p class="footer">Powered by ConnectHub SOAR + Real-time Threat Intelligence</p>
+</div>
+
+</body>
+</html>

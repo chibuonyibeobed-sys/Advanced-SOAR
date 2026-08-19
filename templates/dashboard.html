@@ -1,5 +1,104 @@
-<!DOCTYPE html><html><head><title>SOC Dashboard</title><meta http-equiv="refresh" content="3">
-<style>body{background:#000;color:#0f0;font-family:monospace;padding:20px}h1{border-bottom:2px solid #0f0}
-.alert{border-left:3px solid #0f0;padding:8px;margin:5px 0;background:#111}.critical{border-color:red;color:red}</style></head><body>
-<h1>ADVANCED-SOAR SOC DASHBOARD</h1><h3>BLOCKED IPs</h3>{% for ip in blocked %}<div class="critical">{{ip}}</div>{% endfor %}
-<h3>LIVE ALERTS</h3>{% for a in alerts %}<div class="alert {% if a.level=='CRITICAL' %}critical{% endif %}">[{{a.time}}] {{a.msg}}</div>{% endfor %}</body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ConnectHub SOC | Security Operations</title>
+<meta http-equiv="refresh" content="5">
+<style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+    body{background:#0f172a;color:#e2e8f0;padding:20px}
+    .header{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #38bdf8;padding-bottom:15px;margin-bottom:20px}
+    .header h1{color:#38bdf8;font-size:24px}
+    .status{color:#4ade80;font-weight:600}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .card{background:#1e293b;border-radius:10px;padding:20px;border:1px solid #334155}
+    .card h2{color:#38bdf8;font-size:18px;margin-bottom:15px;border-bottom:1px solid #334155;padding-bottom:8px}
+    .blocked-ip{background:#ef4444;color:white;padding:8px 12px;border-radius:6px;margin:5px 0;font-weight:600}
+    .alert{padding:10px;margin:5px 0;border-left:3px solid #38bdf8;background:#0f172a;border-radius:4px;font-size:14px}
+    .alert.critical{border-color:#ef4444;color:#fca5a5}
+    .alert.warning{border-color:#f59e0b;color:#fcd34d}
+    table{width:100%;border-collapse:collapse;font-size:13px}
+    th,td{padding:8px;text-align:left;border-bottom:1px solid #334155}
+    th{background:#0f172a;color:#38bdf8}
+    .sev-critical{color:#ef4444;font-weight:700}
+    .sev-high{color:#f59e0b;font-weight:700}
+    .sev-medium{color:#38bdf8;font-weight:700}
+    .sev-low{color:#94a3b8}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>🛡️ ConnectHub SOC - Security Operations Center</h1>
+    <div class="status">● SYSTEM ACTIVE</div>
+</div>
+
+<div class="grid">
+    <!-- COLUMN 1: BLOCKED + ALERTS -->
+    <div>
+        <div class="card">
+            <h2>🚫 Currently Blocked IPs - Auto 15min Ban</h2>
+            {% if blocked %}
+                {% for ip in blocked %}
+                <div class="blocked-ip">{{ip}}</div>
+                {% endfor %}
+            {% else %}
+                <p style="color:#94a3b8">No IPs currently blocked</p>
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <h2>📡 Live Security Alerts</h2>
+            {% for a in alerts %}
+            <div class="alert {% if a.level=='CRITICAL' %}critical{% elif a.level=='WARNING' %}warning{% endif %}">
+                [{{a.time}}] {{a.msg}}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- COLUMN 2: IOC WATCHLIST -->
+    <div class="card">
+        <h2>🎯 Sophisticated IOC Watchlist</h2>
+        
+        <h3 style="color:#38bdf8;margin:10px 0 5px 0">Malicious IPs</h3>
+        <table>
+            <tr><th>IP</th><th>Severity</th><th>Category</th></tr>
+            {% for ip, data in ioc.ips.items() %}
+            <tr>
+                <td>{{ip}}</td>
+                <td class="sev-{{data.sev|lower}}">{{data.sev}}</td>
+                <td>{{data.cat}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h3 style="color:#38bdf8;margin:15px 0 5px 0">Malware Hashes</h3>
+        <table>
+            <tr><th>Hash</th><th>Severity</th><th>Category</th></tr>
+            {% for hash, data in ioc.hashes.items() %}
+            <tr>
+                <td>{{hash[:16]}}...</td>
+                <td class="sev-{{data.sev|lower}}">{{data.sev}}</td>
+                <td>{{data.cat}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h3 style="color:#38bdf8;margin:15px 0 5px 0">Phishing Domains</h3>
+        <table>
+            <tr><th>Domain</th><th>Severity</th><th>Category</th></tr>
+            {% for domain, data in ioc.domains.items() %}
+            <tr>
+                <td>{{domain}}</td>
+                <td class="sev-{{data.sev|lower}}">{{data.sev}}</td>
+                <td>{{data.cat}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

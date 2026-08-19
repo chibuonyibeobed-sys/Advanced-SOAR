@@ -1,6 +1,56 @@
-<!DOCTYPE html><html><head><title>Login</title><style>body{background:#f0f2f5;display:flex;justify-content:center;align-items:center;height:100vh}.box{background:white;padding:30px;border-radius:8px;width:320px;box-shadow:0 2px 4px rgba(0,0,0,.1)}
-input,button{width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:5px}button{background:#1877f2;color:white;border:none;font-weight:bold;cursor:pointer}</style></head><body>
-<div class="box"><h2>Login to ConnectHub</h2><form action="/do_login" method="post">
-<input name="username" placeholder="Email or Username" required>
-<input name="password" type="password" placeholder="Password" required>
-<button>Log In</button></form><p>Demo: admin / admin123</p></div></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customer Login | ConnectHub Fintech</title>
+<style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+    body{background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);display:flex;justify-content:center;align-items:center;height:100vh}
+    .container{display:flex;width:900px;max-width:95%;background:white;border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.2)}
+    .left{background:#0f172a;color:white;padding:50px;width:50%;display:flex;flex-direction:column;justify-content:center}
+    .left h1{font-size:32px;margin-bottom:15px;color:#38bdf8}
+    .left p{color:#94a3b8;line-height:1.6}
+    .right{padding:50px;width:50%}
+    .logo{font-size:24px;font-weight:700;color:#0f172a;margin-bottom:20px}
+    .logo span{color:#38bdf8}
+    h2{color:#1e293b;margin-bottom:10px}
+    .subtitle{color:#64748b;margin-bottom:25px;font-size:14px}
+    input{width:100%;padding:14px;margin:10px 0;border:1px solid #cbd5e1;border-radius:8px;font-size:15px}
+    input:focus{outline:none;border-color:#38bdf8}
+    button{width:100%;padding:14px;margin-top:15px;background:#38bdf8;color:#0f172a;border:none;border-radius:8px;font-weight:700;font-size:16px;cursor:pointer}
+    button:hover{background:#0ea5e9;color:white}
+    .footer-note{margin-top:20px;font-size:12px;color:#94a3b8;text-align:center}
+    .alert-box{background:#fef2f2;color:#b91c1c;padding:10px;border-radius:6px;margin-bottom:15px;font-size:14px;border:1px solid #fecaca}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="left">
+        <h1>Secure Banking</h1>
+        <p>ConnectHub uses AI-powered fraud detection, real-time threat intelligence, and 256-bit encryption to protect your money 24/7.</p>
+        <br>
+        <p>✓ Instant Transfers<br>✓ Bill Payments<br>✓ Business APIs</p>
+    </div>
+    
+    <div class="right">
+        <div class="logo">Connect<span>Hub</span></div>
+        <h2>Welcome Back</h2>
+        <p class="subtitle">Login to your ConnectHub customer portal</p>
+        
+        <!-- Error message will show here if login fails -->
+        {% if error %}<div class="alert-box">{{ error }}</div>{% endif %}
+
+        <form action="/do_login" method="post">
+            <input name="username" placeholder="Email or Username" required>
+            <input name="password" type="password" placeholder="Password" required>
+            <button>Log In Securely</button>
+        </form>
+        
+        <p class="footer-note">Demo Access: admin / admin123<br>Protected by Advanced SOAR</p>
+    </div>
+</div>
+
+</body>
+</html>
